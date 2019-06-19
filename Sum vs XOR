@@ -1,0 +1,32 @@
+#following is the answer to <a href="https://www.hackerrank.com/challenges/sum-vs-xor/problem">hackerrank question</a>
+
+#include <bits/stdc++.h>
+using namespace std;
+
+long find_0s(long n){
+    long cnt = 0;
+    long n_cpy = n;
+    //find no_of_one_bits
+    while (n){
+        n = n & (n-1);
+        cnt++;
+    }
+    //return tot_no_of_zero_bits = tot_no_of_bits - bits_of_1s
+    return (long(log2(n_cpy))+1) - cnt;
+}
+
+long sumXor(long n) {
+    //if n == 0, handle this case seperately
+    if (n == 0) 
+        return 1;
+    //find tot_no_zero_bits
+    int no_of_0s = find_0s(n);
+    //return value as 2^(no_of_zeros)
+    return (1l << no_of_0s);
+}
+
+int main(){
+    long n;
+    cin >> n;
+    cout << sumXor(n) << endl;
+}
